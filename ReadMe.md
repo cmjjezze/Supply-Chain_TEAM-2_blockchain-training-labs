@@ -76,10 +76,13 @@ Step 7. Open the postman and put the method in Get and type the localhost:3000. 
 
 Step 8. Adding a invoice. <br>
 > Change the GET method into POST and type the 
+
 ```bash
 localhost:3000/invoice
 ```
 > Click the body and add the these key and values:
+
+```bash
 key         value
 username        Lotus
 invoiceId       INV1 //stands for invoice1
@@ -93,7 +96,11 @@ isPaid          No
 paidAmount      0
 repaid          No
 repaymentAmount     0
+```
+<br>
+
 > Click send
+<br>
 //If you put Bank or OEM in the username value, it will have a error because only the supplier can add a invoice.
 For viewing the new invoice: just do the step 7.
 Step 9. Bank paying the Supplier

@@ -2,14 +2,19 @@
 ## Use Case: Invoice
 
 ### Device Information
-Operating System : Linux Ubuntu 18.04 LTS || 64-bit <br>
-CPU : Intel® Core™ i5-7200U CPU @ 2.50GHz × 4 <br>
-Memory : 11.6 GiB <br>
-Graphics : GeForce 940MX/PCIe/SSE2 <br>
-Disk : 245.1 GB <br>
+```bash
+Operating System : Linux Ubuntu 18.04 LTS || 64-bit
+CPU : Intel® Core™ i5-7200U CPU @ 2.50GHz × 4 
+Memory : 11.6 GiB
+Graphics : GeForce 940MX/PCIe/SSE2 
+Disk : 245.1 GB
+```
 
 
-### Install all the of required development. It is found in the https://hyperledger.github.io/composer/latest/installing/installing-prereqs.html.
+### Install all the of required development. It is found in the 
+```bash
+https://hyperledger.github.io/composer/latest/installing/installing-prereqs.html.
+```
 
 Add installation in golang:
 1. Go to https://golang.org/dl/ for the compatibility of the device using.

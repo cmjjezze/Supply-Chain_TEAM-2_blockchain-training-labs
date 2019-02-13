@@ -37,18 +37,28 @@ Step 2. Go to the folder that you clone earlier and go to the directory of invoi
 cd fabric-samples/invoice
 ```
 Step 3. Start the fabric server. <br>
+```bash
 > hyperledger@ubuntu:~/fabric-samples/invoice$./startFabric.sh
+```
 //This procedure is the starting of the chaincode.
-//If there is an error, just type this command:
+//If there is an error, just type this command: <br>
+```bash
 > $docker kill $(docker ps -q)
 > $docker rm $(docker ps -aq)
 > $docker rmi $(docker images dev-* -q)
-//This command is for stopping and deleting the docker images and container that containing the fabric chaincode
+```
+//This command is for stopping and deleting the docker images and container that containing the fabric chaincode <br>
+
 Step 4. Next, type this command in the terminal:
+```bash
 > node enrollAdmin.js
-//This is the enrolling of admin in the hyperledger. It will give a certificate that is needed.
+```
+//This is the enrolling of admin in the hyperledger. It will give a certificate that is needed.<br>
+
 Step 5. Next, add a user.
+```bash
 > node registerUser.js
+```
 
 
 ## Guide of users:

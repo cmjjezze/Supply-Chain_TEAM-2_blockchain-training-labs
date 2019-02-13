@@ -62,16 +62,23 @@ Step 5. Next, add a user.
 
 
 ## Guide of users:
-IBM - Supplier
-Lotus - OEM
-UBP - Bank
+IBM - Supplier <br>
+Lotus - OEM <br>
+UBP - Bank <br>
+<br>
 //This is the adding or register the three user. The supplier, bank and the OEM or the Object Efficiency Management.
+```bash
 > node app.js
-Step 7. Open the postman and put the method in Get and type the localhost:3000. Click the body. Add a username and Supplier or any user that we register earlier in the key and value respectively.
+```
+Step 7. Open the postman and put the method in Get and type the localhost:3000. Click the body. Add a username and Supplier or any user that we register earlier in the key and value respectively. <br>
 //Supplier, Bank or OEM are the registered user.
 //This will give the initiate record in the function initLedger in the invoice.go file. It is located in the invoice folder by the chaincode folder.
-Step 8. Adding a invoice.
-> Change the GET method into POST and type the localhost:3000/invoice.
+
+Step 8. Adding a invoice. <br>
+> Change the GET method into POST and type the 
+```bash
+localhost:3000/invoice
+```
 > Click the body and add the these key and values:
 key         value
 username        Lotus

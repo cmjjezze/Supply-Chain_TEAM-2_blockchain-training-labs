@@ -19,7 +19,14 @@ var os = require('os');
 var fabric_client = new Fabric_Client();
 var fabric_ca_client = null;
 var admin_user = null;
-var member_user = null;
+var member_user_ibm = null;
+var member_user_lotus = null;
+var member_user_ubp = null;
+
+var secret_ibm = null;
+var secret_lotus = null;
+var secret_ubp = null;
+
 var store_path = path.join(__dirname, 'hfc-key-store');
 console.log(' Store path:'+store_path);
 
@@ -54,28 +61,84 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path
     // at this point we should have the admin user
     // first need to register the user with the CA server
     //var attributes = {username:"Amol:ecert",org:"ICICI:ecert"};
-    let attributes = [{name:"username", value:"John Smith",ecert:true }];
+    let attributes = [
+        //Supplier
+        {name:"username", value:"IBM",ecert:true },
 
-    return fabric_ca_client.register({enrollmentID: 'user1', affiliation: 'org1.department1',role: 'client', attrs: attributes}, admin_user);
+        //OEM
+        {name:"username", value:"Lotus",ecert:true },
 
-}).then((secret) => {
-    // next we need to enroll the user with CA server
-    console.log('Successfully registered user1 - secret:'+ secret);
+        //BANK
+        {name:"username", value:"UBP",ecert:true }
+];
 
-    return fabric_ca_client.enroll({enrollmentID: 'user1', enrollmentSecret: secret});
+    return fabric_ca_client
+    .register({enrollmentID: 'IBM', affiliation: 'org1.department1',role: 'supplier', attrs: attributes}, admin_user)
+    .then((ibm_secret)=>{
+        secret_ibm = ibm_secret
+        return fabric_ca_client
+        .register({enrollmentID: 'Lotus', affiliation: 'org1.department1',role: 'oem', attrs: attributes}, admin_user)
+        .then((lotus_secret)=>{
+            secret_lotus = lotus_secret
+            return fabric_ca_client
+            .register({enrollmentID: 'UBP', affiliation: 'org1.department1',role: 'bank', attrs: attributes}, admin_user)
+
+    })
+})
+
+}).then((ubp_secret) => {
+    secret_ubp = ubp_secret
+    console.log('Successfully registered IBM - secret:'+ secret_ibm);
+    console.log('Successfully registered Lotus - secret:'+ secret_lotus);
+    console.log('Successfully registered UBP - secret:'+ secret_ubp);
+
+    return fabric_ca_client
+    .enroll({enrollmentID: 'IBM', enrollmentSecret: secret_ibm})
+    .then(()=>{
+        return fabric_ca_client
+        .enroll({enrollmentID: 'Lotus', enrollmentSecret: secret_lotus})
+        .then(()=>{
+            return fabric_ca_client
+            .enroll({enrollmentID: 'UBP', enrollmentSecret: secret_ubp});
+
+        })
+    })
+
+
 }).then((enrollment) => {
-  console.log('Successfully enrolled member user "user1" ');
-  return fabric_client.createUser(
-     {username: 'user1',
-     mspid: 'Org1MSP',
-     cryptoContent: { privateKeyPEM: enrollment.key.toBytes(), signedCertPEM: enrollment.certificate }
-     });
-}).then((user) => {
-     member_user = user;
+  console.log('Successfully enrolled member user "IBM" , "Lotus", "UBP" ');
+  return fabric_client
+  .createUser({username: 'IBM',mspid: 'Org1MSP', cryptoContent: { privateKeyPEM: enrollment.key.toBytes(), signedCertPEM: enrollment.certificate }})
+  .then (()=> {
+    return fabric_client
+    .createUser({username: 'Lotus',mspid: 'Org1MSP', cryptoContent: { privateKeyPEM: enrollment.key.toBytes(), signedCertPEM: enrollment.certificate }})
+    .then (()=> {
+        return fabric_client
+        .createUser({username: 'UBP',mspid: 'Org1MSP', cryptoContent: { privateKeyPEM: enrollment.key.toBytes(), signedCertPEM: enrollment.certificate }})
 
-     return fabric_client.setUserContext(member_user);
+     
+  })
+
+})
+
+}).then((user) => {
+     member_user_ibm = user;
+     member_user_lotus = user;
+     member_user_ubp = user;
+
+     return fabric_client
+     .setUserContext(member_user_ibm)
+     .then(() => {
+        return fabric_client
+        .setUserContext(member_user_lotus)
+        .then(() => {
+            return fabric_client
+            .setUserContext(member_user_ubp)
+
+     })
+    })
 }).then(()=>{
-     console.log('User1 was successfully registered and enrolled and is ready to interact with the fabric network');
+     console.log('All 3 users are successfully registered and enrolled and is ready to interact with the fabric network');
 
 }).catch((err) => {
     console.error('Failed to register: ' + err);

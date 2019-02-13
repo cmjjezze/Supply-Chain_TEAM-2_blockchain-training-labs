@@ -1,9 +1,16 @@
 ###  Hyperledger Training
 ## Use Case: Invoice
 
-Device Information
-//lagyan mo na lang
-Installed all the of required development. It is found in the https://hyperledger.github.io/composer/latest/installing/installing-prereqs.html.
+# Device Information
+Operating System : Linux Ubuntu 18.04 LTS || 64-bit
+CPU : Intel® Core™ i5-7200U CPU @ 2.50GHz × 4
+Memory : 11.6 GiB
+Graphics : GeForce 940MX/PCIe/SSE2
+Disk : 245.1 GB
+
+
+# Install all the of required development. It is found in the https://hyperledger.github.io/composer/latest/installing/installing-prereqs.html.
+
 Add installation in golang:
 1. Go to https://golang.org/dl/ for the compatibility of the device using.
 2. After downloading the tar file, extract it in the terminal and paste this command: sudo tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
@@ -12,7 +19,7 @@ Add installation in golang:
 Also install a postman for the testing part. If you are using the ubuntu, just downloaded it in the ubuntu software.
 
 
-Download or clone this repository.
+# Download or clone this repository.
 Step 1. Open the terminal and type: nvm use 8. This command is for the compatibility of node in hyperledger.
 Step 2. Go to the folder that you clone earlier and go to the directory of invoice.
 > hyperledger@ubuntu:~$ cd fabric-samples/invoice

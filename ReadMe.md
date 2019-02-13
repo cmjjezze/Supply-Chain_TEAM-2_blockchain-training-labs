@@ -71,6 +71,7 @@ UBP - Bank <br>
 > node app.js
 ```
 Step 7. Open the postman and put the method in Get and type the localhost:3000. Click the body. Add a username and Supplier or any user that we register earlier in the key and value respectively. <br>
+
 //Supplier, Bank or OEM are the registered user.
 //This will give the initiate record in the function initLedger in the invoice.go file. It is located in the invoice folder by the chaincode folder.
 
@@ -104,15 +105,17 @@ repaymentAmount     0
 
 //If you put Bank or OEM in the username value, it will have a error because only the supplier can add a invoice.
 For viewing the new invoice: just do the step 7. <br>
+
 Step 9. Bank paying the Supplier <br>
 > Change the POST method into PUT and dont change the localhost:3000/invoice. <br>
 > In postman there is a checkbox for disabling the key values. Disable all the key except the invoiceId, username and paidAmount. <br>
 > Change the username value of UBP, invoiceId is INV1 and put a any value in the paidAmount. Paid Amount value should be lowered in the invoiceAmount. Since we put the invoiceAmount in 5000, you should input a value for paidAmount less than 5000. <br>
 > Click Send
 <br>
+
 //There is also an error if you put Supplier or OEM in the username value. Only the bank should pay the supplier.
 For viewing the new invoice: just do the step 7.<br>
-
+<br>
 Step 10. OEM paying the Bank <br>
 > Don't change anything in the method and localhost. <br>
 > In postman there is a checkbox for disabling the key values. Disable all the key except the invoiceId, username and repayAmount. Make sure that the paidAmount is disable. <br>

@@ -1,8 +1,8 @@
 {
-    "name": "fabcar",
+    "name": "invoice",
     "version": "1.0.0",
-    "description": "Hyperledger Fabric Car Sample Application",
-    "main": "fabcar.js",
+    "description": "Team 7 - Invoice",
+    "main": "invoice.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -14,13 +14,12 @@
         "cors": "latest",
         "express": "^4.16.4"
     },
-    "author": "Anthony O'Dowd",
+    "author": "Team 7",
     "license": "Apache-2.0",
     "keywords": [
         "Hyperledger",
         "Fabric",
-        "Car",
-        "Sample",
+        "Invoice",
         "Application"
     ]
 }

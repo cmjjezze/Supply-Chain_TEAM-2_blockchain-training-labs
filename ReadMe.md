@@ -22,16 +22,21 @@ Add installation in golang:
    ```bash
    sudo tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
    ```
-3. Next, add a directory path environment in .profile. Open the terminal and type nano ~/.profile, then paste this command and save: export PATH=$PATH:/usr/local/go/bin;
+3. Next, add a directory path environment in .profile. Open the terminal and type nano ~/.profile, then paste this command and save: <br>
+   ```bash
+   export PATH=$PATH:/usr/local/go/bin;
+   ```
 4. Lastly, type this command to refresh the .profile file: source ~/.profile.
 Also install a postman for the testing part. If you are using the ubuntu, just downloaded it in the ubuntu software.
 
 
 ### Download or clone this repository.
-Step 1. Open the terminal and type: nvm use 8. This command is for the compatibility of node in hyperledger.
+Step 1. Open the terminal and type: nvm use 8. This command is for the compatibility of node in hyperledger. <br>
 Step 2. Go to the folder that you clone earlier and go to the directory of invoice.
-> hyperledger@ubuntu:~$ cd fabric-samples/invoice
-Step 3. Start the fabric server.
+```bash
+cd fabric-samples/invoice
+```
+Step 3. Start the fabric server. <br>
 > hyperledger@ubuntu:~/fabric-samples/invoice$./startFabric.sh
 //This procedure is the starting of the chaincode.
 //If there is an error, just type this command:

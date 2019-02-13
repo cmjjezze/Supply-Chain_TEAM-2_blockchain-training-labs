@@ -1,25 +1,28 @@
-###  Hyperledger Training
+#  Hyperledger Training
 ## Use Case: Invoice
 
-# Device Information
-Operating System : Linux Ubuntu 18.04 LTS || 64-bit
-CPU : Intel® Core™ i5-7200U CPU @ 2.50GHz × 4
-Memory : 11.6 GiB
-Graphics : GeForce 940MX/PCIe/SSE2
-Disk : 245.1 GB
+### Device Information
+Operating System : Linux Ubuntu 18.04 LTS || 64-bit <br>
+CPU : Intel® Core™ i5-7200U CPU @ 2.50GHz × 4 <br>
+Memory : 11.6 GiB <br>
+Graphics : GeForce 940MX/PCIe/SSE2 <br>
+Disk : 245.1 GB <br>
 
 
-# Install all the of required development. It is found in the https://hyperledger.github.io/composer/latest/installing/installing-prereqs.html.
+### Install all the of required development. It is found in the https://hyperledger.github.io/composer/latest/installing/installing-prereqs.html.
 
 Add installation in golang:
 1. Go to https://golang.org/dl/ for the compatibility of the device using.
-2. After downloading the tar file, extract it in the terminal and paste this command: sudo tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
+2. After downloading the tar file, extract it in the terminal and paste this command:
+   ```bash
+   sudo tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
+   ```
 3. Next, add a directory path environment in .profile. Open the terminal and type nano ~/.profile, then paste this command and save: export PATH=$PATH:/usr/local/go/bin;
 4. Lastly, type this command to refresh the .profile file: source ~/.profile.
 Also install a postman for the testing part. If you are using the ubuntu, just downloaded it in the ubuntu software.
 
 
-# Download or clone this repository.
+### Download or clone this repository.
 Step 1. Open the terminal and type: nvm use 8. This command is for the compatibility of node in hyperledger.
 Step 2. Go to the folder that you clone earlier and go to the directory of invoice.
 > hyperledger@ubuntu:~$ cd fabric-samples/invoice
@@ -43,7 +46,6 @@ IBM - Supplier
 Lotus - OEM
 UBP - Bank
 //This is the adding or register the three user. The supplier, bank and the OEM or the Object Efficiency Management.
-Step 6. Start the app or the api.
 > node app.js
 Step 7. Open the postman and put the method in Get and type the localhost:3000. Click the body. Add a username and Supplier or any user that we register earlier in the key and value respectively.
 //Supplier, Bank or OEM are the registered user.

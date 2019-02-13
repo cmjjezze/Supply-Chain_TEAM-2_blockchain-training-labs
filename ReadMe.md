@@ -32,7 +32,10 @@ Also install a postman for the testing part. If you are using the ubuntu, just d
 
 ### Download or clone this repository.
 Step 1. Open the terminal and type: nvm use 8. This command is for the compatibility of node in hyperledger. <br>
-Step 2. Go to the folder that you clone earlier and go to the directory of invoice.
+```bash
+https://github.com/hyperledger/fabric-samples.git
+```
+Step 2. Go to the folder that you clone earlier and go to the directory of invoice. <br>
 ```bash
 cd fabric-samples/invoice
 ```

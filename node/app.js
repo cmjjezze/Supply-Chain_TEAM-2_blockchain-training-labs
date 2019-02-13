@@ -45,14 +45,20 @@ var crypto_store = Fabric_Client.newCryptoKeyStore({path: store_path});
 crypto_suite.setCryptoKeyStore(crypto_store);
 fabric_client.setCryptoSuite(crypto_suite);
 
+//PARA KAY GETUSERCONTEXT
+var username = req.body.username;
+
 // get the enrolled user from persistence, this user will sign all requests
-return fabric_client.getUserContext('user1', true);
+return fabric_client.getUserContext(username, true);
 }).then((user_from_store) => {
 if (user_from_store && user_from_store.isEnrolled()) {
-console.log('Successfully loaded user1 from persistence');
+
+var username = req.body.username;
+console.log('Successfully loaded'+ username +'from persistence');
 member_user = user_from_store;
 } else {
-throw new Error('Failed to get user1.... run registerUser.js');
+var username = req.body.username;
+throw new Error(username + "is not registered to the network");
 }
 
 // get a transaction id object based on the current user assigned to fabric client
@@ -76,54 +82,90 @@ var gr = req.body.gr;
 var ispaid = req.body.ispaid;
 var paidamount = req.body.paidamount;
 var repaid = req.body.repaid;
-var repaymentamount = req.body.repaymentamount;
+var repaymentamount = req.body.paidamount;
 
 raiseinvoice.push(invoiceid);
 if (req.method == "POST")
 {
-  request.fcn='raiseInvoice';
-  raiseinvoice.push(invoicenum);
-  raiseinvoice.push(billedto);
-  raiseinvoice.push(invoicedate);
-  raiseinvoice.push(invoiceamount); 
-  raiseinvoice.push(itemdescription);
-  raiseinvoice.push(gr); 
-  raiseinvoice.push(ispaid);
-  raiseinvoice.push(paidamount); 
-  raiseinvoice.push(repaid);
-  raiseinvoice.push(repaymentamount); 
+  var username = req.body.username;
+
+  //IBM is our supplier
+  // not registered to other users
+
+  if(username!= "IBM"){
+    res.json(username + "is not allowed to do this transaction");
+    throw new Error(username + "is not allowed to do this transaction");
+  }
+
+  else 
+  {
+    request.fcn='raiseInvoice';
+    raiseinvoice.push(invoicenum);
+    raiseinvoice.push(billedto);
+    raiseinvoice.push(invoicedate);
+    raiseinvoice.push(invoiceamount); 
+    raiseinvoice.push(itemdescription);
+    raiseinvoice.push(gr); 
+    raiseinvoice.push(ispaid);
+    raiseinvoice.push(paidamount); 
+    raiseinvoice.push(repaid);
+    raiseinvoice.push(repaymentamount); 
+  }
+
 }
 
 else if(req.method == "PUT")
 {
     if(gr)    
     {
-        //UPDATE state if goods are received
-        //DEFAULT state is No
-        request.fcn= 'receivedGoods',
+    if (username != "Lotus"){
+     res.json(username + " is not allowed to do this transaction.");
+     throw new Error(username + " is not allowed to do this transaction.");
+    }
+    else {
+        request.fcn= 'isGoodsReceived',
         raiseinvoice.push(gr);
     }
-    
+  }
     else if(ispaid)
     {
-        //UPDATE state if banks already paid the supplier
-        //DEFAULT state is No
-        request.fcn= 'paymentToSupplier',
+      if (username != "UBP"){
+        res.json(username + " is not allowed to do this transaction.");
+        throw new Error(username + " is not allowed to do this transaction.");
+       }
+       else {
+        request.fcn= 'isPaidToSupplier',
         raiseinvoice.push(ispaid);
     }
-
+  }
     else if(repaid)
     {
-        //UPDATE state if OEM already repaid the bank
-        //DEFAULT state is No
-        request.fcn= 'paymentToBank',
+      var username = req.body.username;
+
+    
+      if(username!= "Lotus"){
+        res.json(username + " is not allowed to do this transaction.");
+        throw new Error(username + " is not allowed to do this transaction.");
+      }
+    
+      else 
+      {
+        request.fcn= 'isPaidToBank',
         raiseinvoice.push(repaid);
     }
+}
 }
 
 
 request.args=raiseinvoice;
 console.log(request);
+
+res.json({
+  Function:request.fcn,
+  Inputs:request.args,
+  Result: "Success"
+});
+
 
 // send the transaction proposal to the peers
 return channel.sendTransactionProposal(request);
@@ -212,7 +254,7 @@ console.error('Failed to order the transaction. Error code: ' + results[0].statu
 
 if(results && results[1] && results[1].event_status === 'VALID') {
 console.log('Successfully committed the change to the ledger by the peer');
-                res.json({'result': 'success'});
+          //      res.json({'result': 'success'});
 } else {
 console.log('Transaction failed to be committed to the ledger due to ::'+results[1].event_status);
 }
@@ -239,14 +281,20 @@ var crypto_store = Fabric_Client.newCryptoKeyStore({path: store_path});
 crypto_suite.setCryptoKeyStore(crypto_store);
 fabric_client.setCryptoSuite(crypto_suite);
 
+//PARA KAY GETUSERCONTEXT
+var username = req.body.username;
+
 // get the enrolled user from persistence, this user will sign all requests
-return fabric_client.getUserContext('user1', true);
+return fabric_client.getUserContext(username, true);
 }).then((user_from_store) => {
 if (user_from_store && user_from_store.isEnrolled()) {
-console.log('Successfully loaded user1 from persistence');
+
+var username = req.body.username;
+console.log('Successfully loaded'+ username +'from persistence');
 member_user = user_from_store;
 } else {
-throw new Error('Failed to get user1.... run registerUser.js');
+var username = req.body.username;
+throw new Error(username + "is not registered to the network");
 }
 
 // displayAllInvoices chaincode function - requires no arguments , ex: args: [''],
@@ -260,7 +308,7 @@ args: ['']
 
 var ar = [];
 var attr = req.query.attr;
-
+var invoiceid = req.query.invoiceid;
 if (attr){
   
   ar.push(attr);
@@ -268,6 +316,12 @@ if (attr){
   request.args = ar;
 }
 
+else if (invoiceid){
+  
+  ar.push(invoiceid);
+  request.fcn='getAuditHistoryForInvoice';
+  request.args = ar;
+}
 
 // send the query proposal to the peer
 return channel.queryByChaincode(request);
@@ -331,8 +385,3 @@ app.get('/block', function (req, res) {
                 return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
            });
  }
-  
-
-
-  
-  

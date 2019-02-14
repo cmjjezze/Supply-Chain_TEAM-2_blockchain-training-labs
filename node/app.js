@@ -45,7 +45,7 @@ var crypto_store = Fabric_Client.newCryptoKeyStore({path: store_path});
 crypto_suite.setCryptoKeyStore(crypto_store);
 fabric_client.setCryptoSuite(crypto_suite);
 
-//PARA KAY GETUSERCONTEXT
+
 var username = req.body.username;
 
 // get the enrolled user from persistence, this user will sign all requests
@@ -281,7 +281,7 @@ var crypto_store = Fabric_Client.newCryptoKeyStore({path: store_path});
 crypto_suite.setCryptoKeyStore(crypto_store);
 fabric_client.setCryptoSuite(crypto_suite);
 
-//PARA KAY GETUSERCONTEXT
+
 var username = req.body.username;
 
 // get the enrolled user from persistence, this user will sign all requests

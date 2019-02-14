@@ -125,7 +125,7 @@
 	 return shim.Success(nil)
  }
  
- // John Carlo Cuya
+
  // DONE
  func (s *SmartContract) raiseInvoice(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
  
@@ -161,7 +161,7 @@
 	 return shim.Success(nil)
  }
  
- // Joshua Caramancion
+
  // DONE
  func (s *SmartContract) displayAllInvoices(APIstub shim.ChaincodeStubInterface) sc.Response {
  
@@ -206,7 +206,7 @@
 	 return shim.Success(buffer.Bytes())
  }
  
- // Ron Vincent Exconde
+ 
  // DONE
  func (s *SmartContract) isGoodsReceived(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
  
@@ -226,7 +226,7 @@
 	 return shim.Success(nil)
  }
  
- // Jenrielle Gaon
+
  func (s *SmartContract) isPaidToSupplier(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
  
 	 if len(args) != 2 {
@@ -245,7 +245,7 @@
 	 return shim.Success(nil)
  }
  
- // Jenrielle Gaon
+
  func (s *SmartContract) isPaidToBank(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
  
 	 if len(args) != 2 {
